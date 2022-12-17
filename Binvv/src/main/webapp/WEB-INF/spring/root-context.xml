@@ -14,7 +14,7 @@
 		<property name="jdbcUrl"
 			value="jdbc:mysql://localhost:3306/kyungbin?serverTimezone=Asia/Seoul"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="ansdj1"></property>
+		<property name="password" value="1234"></property>
 	</bean>
 
 	<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource"
@@ -25,6 +25,7 @@
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="datasource"></property>
+		<property name="mapperLocations" value="classpath:com.vam.mapper/**/*.xml"/>
 	</bean>
 	
 	<mybatis-spring:scan base-package="com.vam.mapper"/>
