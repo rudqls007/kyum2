@@ -18,4 +18,11 @@ public class MemberServiceImpl implements MemberService  {
 		membermapper.memberJoin(member);
 	}
 
+
+	@Override
+	public int idCheck(String memberId) throws Exception {
+		// TODO Auto-generated method stub
+		return membermapper.idCheck(memberId);
+	}
+
 }
