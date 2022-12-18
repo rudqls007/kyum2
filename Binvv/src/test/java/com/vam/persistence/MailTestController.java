@@ -28,8 +28,8 @@ public class MailTestController {
         
         String subject = "test 메일";
         String content = "메일 테스트 내용 " + "<img src=\"https://t1.daumcdn.net/cfile/tistory/214DCD42594CC40625\">";
-        String from = "dlrudqls55@naver.com";
-        String to = "rudqls007@gmail.com";
+        String from = "rudqls007@gmail.com";
+        String to = "dlrudqls55@naver.com";
         
         try {
             MimeMessage mail = mailSender.createMimeMessage();

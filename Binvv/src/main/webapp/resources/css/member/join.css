@@ -294,3 +294,10 @@
     background-color:white;
 }
  
+ 
+.correct{
+    color : green;
+}
+.incorrect{
+    color : red;
+}
