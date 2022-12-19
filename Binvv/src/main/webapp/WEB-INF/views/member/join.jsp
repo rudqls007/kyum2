@@ -132,6 +132,7 @@
 	}); // function 종료
 	
 	
+	 
 	/* 인증번호 이메일 전송 */
 	$(".mail_check_button").click(function(){
 	    
@@ -155,7 +156,6 @@
 	    });
 	    
 	});
-	 
 	    
 	    
 

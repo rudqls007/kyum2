@@ -133,7 +133,7 @@ public class MemberController {
         
         /* 뷰(View)로부터 넘어온 데이터 확인 */
         logger.info("이메일 데이터 전송 확인");
-        logger.info("인증번호 : " + email);
+        
         
         /* 인증번호(난수) 생성 */
         Random random = new Random();
@@ -141,27 +141,27 @@ public class MemberController {
         logger.info("인증번호 : " + checkNum);
         
         /* 이메일 보내기 */
-        String setFrom = "rudqls007@gmail.com"; // - setForm : root-context.xml에 삽입한 자신의 이메일 계정의 이메일 주소입니다. (아이디만 입력하는 것이 아니라 이메일 주소를 입력해야 합니다.)
-        String toMail = email;  // toMail : 수신받을 이메일입니다. 뷰로부터 받은 이메일 주소인 변수 email을 사용하였습니다.
-        String title = "회원가입 인증 이메일 입니다."; // - title : 자신이 보낼 이메일 제목을 작성합니다.
+        String setFrom = "rudqls007@gmail.com";
+        String toMail = email;
+        String title = "회원가입 인증 이메일 입니다.";
         String content = 
-        		"홈페이지를 방문해주셔서 감사합니다." + // - content : 자신이 보낼 이메일 내용입니다.
-        	    "<br><br>" +
-        	    "인증 번호는 : " + checkNum + "입니다." +
-        	    "<br>" +
-        	    "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+                "홈페이지를 방문해주셔서 감사합니다." +
+                "<br><br>" + 
+                "인증 번호는 " + checkNum + "입니다." + 
+                "<br>" + 
+                "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
         			
         
-		/*
-		 * try {
-		 * 
-		 * MimeMessage message = mailSender.createMimeMessage(); MimeMessageHelper
-		 * helper = new MimeMessageHelper(message, true, "utf-8");
-		 * helper.setFrom(setFrom); helper.setTo(toMail); helper.setSubject(title);
-		 * helper.setText(content,true); mailSender.send(message);
-		 * 
-		 * }catch(Exception e) { e.printStackTrace(); }
-		 */
+		
+		  try {
+		  
+		  MimeMessage message = mailSender.createMimeMessage(); MimeMessageHelper
+		  helper = new MimeMessageHelper(message, true, "utf-8");
+		  helper.setFrom(setFrom); helper.setTo(toMail); helper.setSubject(title);
+		  helper.setText(content,true); mailSender.send(message);
+		  
+		  }catch(Exception e) { e.printStackTrace(); }
+		 
         
       	String num = Integer.toString(checkNum);
       	
