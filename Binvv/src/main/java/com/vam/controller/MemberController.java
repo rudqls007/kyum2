@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.vam.model.MemberVO;
 import com.vam.service.MemberService;
@@ -166,6 +169,34 @@ public class MemberController {
       	String num = Integer.toString(checkNum);
       	
       	return num;
+    }    	
+	// MemberController.java 에 로그인 기능을 수행하는 메서드를 작성함. 
+	// 파라미터로는 MemberVO, HttpServletRequest, RedirectAttributes를 사용함.
+	// MemberVo는 데이터를 전달받기 위해, HttpServletRequest는 로그인 성공 시 session에 회원 정보를 저장하기 위해, 
+	// RedirectAttributes는 로그인 실패 시 리다이렉트 된 로그인 페이지에 실패를 의미하는 데이터를 전송하기 위해 사용함.
+
+    
+    /* 로그인 */
+    @RequestMapping(value="login", method=RequestMethod.POST)
+    public String loginPOST(HttpServletRequest request, MemberVO member, RedirectAttributes rttr) throws Exception{
+
+        System.out.println("login 메서드 진입");
+        System.out.println("전달된 데이터 : " + member);
+    	HttpSession session = request.getSession();
+    	//  두 가지의 변수를 선언 및 초기화를 진행할 것입니다. 먼저 session을 사용하기 위해 session 변수를 선언하고 request.getSession()으로 초기화
+    	MemberVO lvo = memberservice.memberLogin(member);
+    	//  memberLogin 메서드를 요청하게 되면 MemberMapper.java를 거쳐서 로그인 쿼리가 실행이 되게 되고 그 결과 값이 담긴 MemberVO 객체를 반환받아서 변수 lvo에 저장
+    	
+    	if (lvo == null) {
+    		int result = 0;
+    		rttr.addFlashAttribute("result", result);
+    		return "redirect:/member/login";
+    	}
+    	
+    	session.setAttribute("member", lvo);
+    	
+        return "redirect:/main";
     }
-	
+ 
+
 }

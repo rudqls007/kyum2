@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.vam.mapper.MemberMapper">
 	<!-- insert -->
+	
 	<!-- 회원가입 쿼리문을 호출하는 메서드 이름 : memberJoin -->
 	<insert id="memberJoin">
 		insert into book_member values
@@ -12,10 +13,19 @@
 	</insert>
 	
 	<!-- select -->
+	
 	<!-- 아이디 중복검사 -->
   	<select id="idCheck" resultType="int">
   	
   		select count(*) from book_member where memberId = #{memberId}
   	
   	</select>
+  	
+  	<!-- 로그인 -->
+      <select id="memberLogin" resultType="com.vam.model.MemberVO">
+      
+         select memberId, memberName, adminck, money, point from book_member where memberId = #{memberId} and memberPw = #{memberPw}
+      
+      </select>
+  	
   </mapper>
