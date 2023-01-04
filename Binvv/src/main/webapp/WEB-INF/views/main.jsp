@@ -7,6 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Welcome BookMall</title>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 </head>
 <style type="text/css">
 *{
@@ -26,7 +30,7 @@
 .top_gnb_area{
 	width: 100%;
     height: 50px;
-    background-color: #a2a2ea;
+    background-color: #f0f0f1;
 }
 /* 로고, 검색, 로그인 */
 .top_area{
@@ -123,17 +127,84 @@
     margin: 5% auto;
     padding-top: 5%;
 }
-.login_success_area>span{
+.login_success_area > span{
     display : block;
     text-align: left;
     margin-left: 10%;
+}
+
+.login_success_area > a{
+    font-size: 15px;
+    font-weight: 900;
+    display: inline-block;
+    margin-top: 5px;
+    background: #e1e5e8;
+    width: 82px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 25px;
+    color: #606267;    
+}
+
+
+
+a{
+    text-decoration: none;
+}
+ 
+.top_gnb_area{
+    position:relative;
+}
+ 
+.top_gnb_area .list{
+    position: absolute;
+    top: 0px;
+    right: 0;
+    
+}
+ 
+.top_gnb_area .list li{
+    list-style: none;    
+    float : left;
+    padding: 13px 15px 0 10px;
+    font-weight: 900;
+    cursor: pointer;
 }
 </style>
 <body>
 	<div class="wrapper">
 		<div class="wrap">
 			<div class="top_gnb_area">
-				<h1>gnb area</h1>
+				<ul class="list">
+					<c:if test= "${member == null}"> 		<!-- 로그인 X -->
+					<li>
+						<a href = "/member/login">로그인</a>
+					</li>
+					
+					<li>
+						<a href = "/member/join">회원가입</a>
+					</li>
+					</c:if>
+					<c:if test="${member != null }">		  <!-- 로그인 O -->
+						<c:if test="${member.adminCk == 1 }"> <!-- 관리자 계정 -->
+							<li><a href="/admin/main">관리자 페이지</a></li>
+						</c:if>
+						<li>
+							로그아웃
+						</li>
+						
+						<li>
+							마이룸
+						</li>
+						
+						<li>
+							장바구니
+						</li>
+					</c:if>
+					<li>
+						고객센터
+					</li>
+				</ul>
 			</div>
 			<div class="top_area">
 				<div class="logo_area">
@@ -154,6 +225,7 @@
                         <span>회원 : ${member.memberName}</span>
                         <span>충전금액 :  <fmt:formatNumber value="${member.money }" pattern="\#,###.##"/></span>
                         <span>포인트 :   <fmt:formatNumber value="${member.point }" pattern="#,###" /></span>
+                        <a href="/member/logout.do">로그아웃</a>
                     </div>
                 </c:if>
 				</div>
