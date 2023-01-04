@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,7 +35,10 @@ public class MemberController {
 	@Autowired
 	private MemberService memberservice;
 	// @Autowired를 통해서 MemberService.java가 MemberController.java에 자동 주입되도록 코드를 추가함
-
+	
+	@Autowired
+	private BCryptPasswordEncoder pwEncoder;
+	// BCryptPasswordEncoder를 Autowired 어노테이션을 이용해서 의존성 주입을 해줌.
 
 @RequestMapping(value = "/sendMail", method = RequestMethod.GET)
     public void sendMailTest() throws Exception{
@@ -78,24 +82,28 @@ public class MemberController {
 
 
 	// 회원가입 페이지 이동
-	@RequestMapping(value = "join", method = RequestMethod.GET)
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public void loginGET() {
 		logger.info("회원가입 페이지 진입");
 	}
 
-	// 회원가입
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinPOST(MemberVO member) throws Exception {
-
-		logger.info("join 진입");
-
-		// 회원가입 서비스 실행
+	//회원가입
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public String joinPOST(MemberVO member) throws Exception{
+		
+		String rawPw = "";			// 인코딩 전 비밀번호
+		String encodePw = "";		// 인코딩 후 비밀번호
+		
+		rawPw = member.getMemberPw();			// 비밀번호 데이터 얻음
+		encodePw = pwEncoder.encode(rawPw);		// 비밀번호 인코딩
+		member.setMemberPw(encodePw);			// 인코딩된 비밀번호 member객체에 다시 저장
+		
+		/* 회원가입 쿼리 실행 */
 		memberservice.memberJoin(member);
-
-		logger.info("join Service 성공");
-
+	
 		return "redirect:/main";
 	}
+		
 
 	// 로그인 페이지 이동
 	@RequestMapping(value = "login", method = RequestMethod.GET)
