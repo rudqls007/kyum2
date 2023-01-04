@@ -10,8 +10,21 @@
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
-<link rel="stylesheet" href="/resources/css/member/login.css">
+<link rel="stylesheet" href="\resources\css\member\login.css">
 </head>
+<style type="text/css">
+/* 로그인 실패시 경고글 */
+.login_warn{
+    margin-top: 30px;
+    text-align: center;
+    color : red;
+}
+ 
+
+</style>
+
+
+
 <body>
 
 <div class="wrapper">

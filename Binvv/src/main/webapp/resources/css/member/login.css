@@ -81,7 +81,7 @@
 	clear: both;
 }
 
-
+ 
  
 /* 로그인 실패시 경고글 */
 .login_warn{
@@ -89,3 +89,4 @@
     text-align: center;
     color : red;
 }
+ 

@@ -7,8 +7,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Welcome BookMall</title>
-<link rel="stylesheet" href="resources/css/main.css">
+<link rel="stylesheet" href="/resources/css/main.css">
 </head>
+<style type="text/css">
+/* 로그인 성공 영역 */
+.login_success_area{
+    height: 62%;
+    width: 80%;
+    border: 2px solid #7474ad;
+    border-radius: 15px;
+    margin: 5% auto;
+    padding-top: 5%;
+}
+.login_success_area>span{
+    display : block;
+    text-align: left;
+    margin-left: 10%;
+}
+
+</style>
 <body>
 
 
@@ -35,7 +52,7 @@
                     <div class="login_success_area">
                         <span>회원 : ${member.memberName}</span>
                         <span>충전금액 :  <fmt:formatNumber value="${member.money }" pattern="\#,###.##"/></span>
-                        <span>포인트 : <fmt:formatNumber value="${member.point }" pattern="#,###" /></span>
+                        <span>포인트 :   <fmt:formatNumber value="${member.point }" pattern="#,###" /></span>
                     </div>
                 </c:if>
 				</div>
